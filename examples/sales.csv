@@ -1,0 +1,11 @@
+transaction_id,product,quantity,amount,status
+T001,Laptop,1,1200,Completed
+T002,Mouse,3,75,Completed
+T003,Keyboard,2,100,Canceled
+T004,Mouse,1,25,Completed
+T005,Laptop,1,1300,Completed
+T006,Monitor,2,400,Pending
+T007,Monitor,1,200,Completed
+T008,Mouse,2,50,Completed
+T009,Keyboard,1,50,Completed
+T010,Laptop,1,1100,Canceled
