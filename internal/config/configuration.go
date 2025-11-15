@@ -22,6 +22,8 @@ type TransformStep struct {
 	Type       string            `yaml:"type"`
 	Mapping    map[string]string `yaml:"mapping,omitempty"`
 	Expression string            `yaml:"expression,omitempty"`
+	GroupBy    string            `yaml:"group_by,omitempty"`
+	Operations map[string]string `yaml:"operations,omitempty"`
 }
 
 type LoadConfig struct {

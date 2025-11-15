@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/config"
-	"github.com/ciolteamihairobert/go-etl-pipeline/internal/connector"
+	"github.com/ciolteamihairobert/go-etl-pipeline/internal/runner"
 )
 
 func main() {
@@ -21,11 +21,7 @@ func main() {
 	fmt.Printf("Extract type: %s\n", cfg.Extract.Type) // afisam tipul de extractie
 	fmt.Printf("Load type: %s\n", cfg.Load.Type)       // afisam tipul de incarcare
 
-	header, rows, err := connector.ExtractCSV(cfg.Extract.Config) // extragem datele folosind configuratia de extractie
-	if err != nil {                                               // daca apare o eroare la extragere
-		log.Fatalf("CSV extract failed: %v", err) // logam eroarea si oprim executia
+	if err := runner.Run(cfg); err != nil { // rulam pipeline-ul
+		log.Fatalf("Pipeline failed: %v", err) // logam eroarea si oprim executia daca apare o eroare
 	}
-
-	fmt.Println("Header:", header) // afisam header-ul
-	fmt.Println("Rows:", rows)     // afisam randurile
 }
