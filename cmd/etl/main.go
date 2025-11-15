@@ -21,11 +21,11 @@ func main() {
 	fmt.Printf("Extract type: %s\n", cfg.Extract.Type) // afisam tipul de extractie
 	fmt.Printf("Load type: %s\n", cfg.Load.Type)       // afisam tipul de incarcare
 
-	if cfg.Extract.Type == "csv" { // daca tipul de extractie este CSV
-		csvPath := cfg.Extract.Config["path"].(string) // obtinem calea fisierului CSV din configuratie
-		err = connector.ReadCSV(csvPath)               // citim fisierul CSV folosind connectorul CSV
-		if err != nil {                                // daca apare o eroare la citire
-			log.Fatalf("Failed to read CSV: %v", err) // logam eroarea si oprim executia
-		}
+	header, rows, err := connector.ExtractCSV(cfg.Extract.Config) // extragem datele folosind configuratia de extractie
+	if err != nil {                                               // daca apare o eroare la extragere
+		log.Fatalf("CSV extract failed: %v", err) // logam eroarea si oprim executia
 	}
+
+	fmt.Println("Header:", header) // afisam header-ul
+	fmt.Println("Rows:", rows)     // afisam randurile
 }
