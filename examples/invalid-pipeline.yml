@@ -1,0 +1,14 @@
+name: ""
+extract:
+  type: ""
+  config:
+    path: ./examples/sales.csv
+transform:
+  - type: aggregate
+    operations:
+      total_sales: "sum(amount)"
+load:
+  type: sqlite
+  config:
+    path: ./examples/sales_invalid.db
+    table: sales_summary

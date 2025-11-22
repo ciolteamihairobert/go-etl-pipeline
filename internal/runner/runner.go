@@ -1,6 +1,8 @@
 package runner
 
 import (
+	"fmt"
+
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/config"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/connector"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/load"
@@ -8,6 +10,10 @@ import (
 )
 
 func Run(cfg *config.PipelineConfig) error { // functie pentru rularea pipeline-ului ETL
+	if err := cfg.Validate(); err != nil { // validam configuratia pipeline-ului
+		return fmt.Errorf("pipeline validation failed: %w", err) // returnam eroarea daca validarea esueaza
+	}
+
 	header, rows, err := connector.ExtractCSV(cfg.Extract.Config) // extragem datele folosind configuratia de extractie
 	if err != nil {                                               // daca apare o eroare la extragere
 		return err // returnam eroarea
