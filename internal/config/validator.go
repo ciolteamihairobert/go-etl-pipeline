@@ -15,6 +15,11 @@ func (cfg *PipelineConfig) Validate() error { // functie pentru validarea config
 		return fmt.Errorf("load type is required") // returnam o eroare
 	}
 
+	// Validam ca intervalul e pozitiv si ca numarul de retry-uri e cel putin 1.
+	if cfg.Schedule.IntervalSeconds <= 0 || cfg.Schedule.Retries < 1 { // daca intervalul <= 0 sau retries < 1
+		return fmt.Errorf("schedule interval must be > 0 and retries must be >= 1") // returnam o eroare
+	}
+
 	for i, t := range cfg.Transform { // iteram prin pasii de transformare
 		if t.Type == "" { // daca tipul pasului este gol
 			return fmt.Errorf("transform step %d has no type", i+1) // returnam o eroare

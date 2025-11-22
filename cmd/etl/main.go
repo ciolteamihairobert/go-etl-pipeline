@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/config"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/runner"
@@ -21,7 +22,39 @@ func main() {
 	fmt.Printf("Extract type: %s\n", cfg.Extract.Type) // afisam tipul de extractie
 	fmt.Printf("Load type: %s\n", cfg.Load.Type)       // afisam tipul de incarcare
 
-	if err := runner.Run(cfg); err != nil { // rulam pipeline-ul
-		log.Fatalf("Pipeline failed: %v", err) // logam eroarea si oprim executia daca apare o eroare
+	// scheduler simplu: rulam pipeline-ul periodic (la fiecare invervalSeconds secunde)
+	// time.NewTicker creeaza un canal care trimite un eveniment la fiecare durata specificata
+	ticker := time.NewTicker(time.Duration(cfg.Schedule.IntervalSeconds) * time.Second)
+	defer ticker.Stop()
+
+	for {
+		fmt.Println("Starting pipeline execution...")
+
+		// retry pentru tot pipeline-ul
+		err := retry(cfg.Schedule.Retries, func() error {
+			return runner.Run(cfg)
+		})
+
+		if err != nil {
+			log.Printf("Pipeline failed after retries: %v\n", err)
+		} else {
+			fmt.Println("Pipeline executed successfully!")
+		}
+
+		<-ticker.C // așteptăm următorul interval
 	}
+}
+
+func retry(attempts int, fn func() error) error {
+	var err error
+	for i := 0; i < attempts; i++ {
+		err = fn()
+		if err == nil {
+			return nil
+		}
+		wait := time.Second * time.Duration(i+1)
+		fmt.Printf("Attempt %d failed: %v. Retrying in %v...\n", i+1, err, wait)
+		time.Sleep(wait)
+	}
+	return fmt.Errorf("after %d attempts, last error: %w", attempts, err)
 }

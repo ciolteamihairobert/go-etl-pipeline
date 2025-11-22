@@ -11,6 +11,7 @@ type PipelineConfig struct {
 	Extract   ExtractConfig   `yaml:"extract"`
 	Transform []TransformStep `yaml:"transform"`
 	Load      LoadConfig      `yaml:"load"`
+	Schedule  ScheduleConfig  `yaml:"schedule,omitempty"`
 }
 
 type ExtractConfig struct {
@@ -30,6 +31,11 @@ type LoadConfig struct {
 	Type   string                 `yaml:"type"`
 	Config map[string]interface{} `yaml:"config"` // un map generic cu key string si values ce se vrea
 	// pentru configuratii specifice fiecarui tip de load
+}
+
+type ScheduleConfig struct {
+	IntervalSeconds int `yaml:"interval_seconds"` // intervalul la care se ruleaza pipeline-ul
+	Retries         int `yaml:"retries"`          // numarul de retries
 }
 
 func LoadPipelineConfig(path string) (*PipelineConfig, error) { // dam ca parametru calea catre fisierul yaml,

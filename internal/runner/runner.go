@@ -15,8 +15,8 @@ func Run(cfg *config.PipelineConfig) error { // functie pentru rularea pipeline-
 	}
 
 	header, rows, err := connector.ExtractCSV(cfg.Extract.Config) // extragem datele folosind configuratia de extractie
-	if err != nil {                                               // daca apare o eroare la extragere
-		return err // returnam eroarea
+	if err != nil {
+		return fmt.Errorf("extract failed: %w", err)
 	}
 
 	for _, step := range cfg.Transform { // iteram prin pasii de transformare
@@ -37,7 +37,7 @@ func Run(cfg *config.PipelineConfig) error { // functie pentru rularea pipeline-
 		return load.ToStdout(header, rows) // incarcam datele in stdout
 	case "sqlite": // daca este sqlite
 		return load.ToSQLite(cfg.Load.Config, header, rows) // incarcam datele in sqlite
+	default:
+		return fmt.Errorf("unknown load type: %s", cfg.Load.Type)
 	}
-
-	return nil // returnam nil daca totul a decurs bine
 }

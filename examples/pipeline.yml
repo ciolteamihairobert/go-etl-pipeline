@@ -2,7 +2,7 @@ name: sales-aggregator
 extract:
   type: csv
   config:
-    path: ./examples/sales.csv
+    path: ./examples/salefsadsas.csv
     delimiter: ","
 transform:
   - type: filter
@@ -18,3 +18,6 @@ load:
   config:
     path: ./examples/sales.db
     table: sales_summary
+schedule:
+  interval_seconds: 20
+  retries: 5
