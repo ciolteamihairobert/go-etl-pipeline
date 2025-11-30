@@ -7,11 +7,12 @@ import (
 )
 
 type PipelineConfig struct {
-	Name      string          `yaml:"name"` //numele pipeline-ului (in cazul asta e sales-aggregator)
-	Extract   ExtractConfig   `yaml:"extract"`
-	Transform []TransformStep `yaml:"transform"`
-	Load      LoadConfig      `yaml:"load"`
-	Schedule  ScheduleConfig  `yaml:"schedule,omitempty"`
+	Name           string           `yaml:"name"` //numele pipeline-ului (in cazul asta e sales-aggregator)
+	Extract        ExtractConfig    `yaml:"extract"`
+	Transform      []TransformStep  `yaml:"transform"`
+	Load           LoadConfig       `yaml:"load"`
+	Schedule       ScheduleConfig   `yaml:"schedule,omitempty"`
+	DataValidation []ValidationRule `yaml:"validate,omitempty"`
 }
 
 type ExtractConfig struct {
@@ -36,6 +37,11 @@ type LoadConfig struct {
 type ScheduleConfig struct {
 	IntervalSeconds int `yaml:"interval_seconds"` // intervalul la care se ruleaza pipeline-ul
 	Retries         int `yaml:"retries"`          // numarul de retries
+}
+
+type ValidationRule struct {
+	Field string `yaml:"field"` // numele coloanei (ex: "amount")
+	Rule  string `yaml:"rule"`  // regula (ex: "numeric", "not_empty", "one_of:Completed,Pending")
 }
 
 func LoadPipelineConfig(path string) (*PipelineConfig, error) { // dam ca parametru calea catre fisierul yaml,

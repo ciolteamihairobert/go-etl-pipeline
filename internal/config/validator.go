@@ -34,5 +34,11 @@ func (cfg *PipelineConfig) Validate() error { // functie pentru validarea config
 		}
 	}
 
+	for i, r := range cfg.DataValidation { // iteram prin regulile de validare a datelor
+		if r.Field == "" || r.Rule == "" { // daca campul sau regula este goala
+			return fmt.Errorf("validation rule %d must have both 'field' and 'rule'", i+1) // returnam o eroare
+		}
+	}
+
 	return nil
 }

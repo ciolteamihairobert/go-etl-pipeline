@@ -7,6 +7,7 @@ import (
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/connector"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/load"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/transform"
+	"github.com/ciolteamihairobert/go-etl-pipeline/internal/validation"
 )
 
 func Run(cfg *config.PipelineConfig) error { // functie pentru rularea pipeline-ului ETL
@@ -17,6 +18,14 @@ func Run(cfg *config.PipelineConfig) error { // functie pentru rularea pipeline-
 	header, rows, err := connector.ExtractCSV(cfg.Extract.Config) // extragem datele folosind configuratia de extractie
 	if err != nil {
 		return fmt.Errorf("extract failed: %w", err)
+	}
+
+	if len(cfg.DataValidation) > 0 { // daca exista reguli de validare a datelor
+		for i, r := range rows { // iteram prin randuri
+			if err := validation.ValidateRow(header, r, cfg.DataValidation); err != nil { // validam randul curent
+				return fmt.Errorf("data validation failed at row %d: %w", i+1, err) // returnam eroarea daca validarea esueaza
+			}
+		}
 	}
 
 	for _, step := range cfg.Transform { // iteram prin pasii de transformare

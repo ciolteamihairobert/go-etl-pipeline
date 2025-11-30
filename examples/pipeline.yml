@@ -2,7 +2,7 @@ name: sales-aggregator
 extract:
   type: csv
   config:
-    path: ./examples/salefsadsas.csv
+    path: ./examples/sales.csv
     delimiter: ","
 transform:
   - type: filter
@@ -21,3 +21,8 @@ load:
 schedule:
   interval_seconds: 20
   retries: 5
+validate:
+  - field: amount
+    rule: numeric
+  - field: status
+    rule: "one_of:Completed,Pending,Canceled"
