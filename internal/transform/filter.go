@@ -1,22 +1,31 @@
 package transform
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/ciolteamihairobert/go-etl-pipeline/internal/logger"
+)
 
 func ApplyFilter(rows [][]string, header []string, expression string) [][]string {
-	field, value := parseExpression(expression)
+	logger.Info.Printf("Applying filter: %s", expression) // logam expresia de filtrare
 
-	col := indexOf(header, field)
-	if col == -1 {
-		return rows
+	field, value := parseExpression(expression) // parsam expresia
+
+	col := indexOf(header, field) // gasim indexul coloanei
+	if col == -1 {                // daca coloana nu exista
+		logger.Error.Printf("Filter field '%s' not found", field) // logam o eroare
+		return rows                                               // returnam randurile neschimbate
 	}
 
-	var out [][]string
-	for _, r := range rows {
-		if r[col] == value {
-			out = append(out, r)
+	var out [][]string       // slice pentru a tine randurile filtrate
+	for _, r := range rows { // iteram prin randuri
+		if r[col] == value { // daca valoarea din coloana este egala cu valoarea cautata
+			out = append(out, r) // adaugam randul la output
 		}
 	}
-	return out
+
+	logger.Info.Printf("Filter result: %d rows", len(out)) // logam numarul de randuri ramase dupa filtrare
+	return out                                             // returnam randurile filtrate
 }
 
 func parseExpression(expr string) (string, string) {

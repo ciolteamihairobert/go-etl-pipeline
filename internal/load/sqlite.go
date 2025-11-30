@@ -4,54 +4,58 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/ciolteamihairobert/go-etl-pipeline/internal/logger"
 	_ "modernc.org/sqlite"
 )
 
-func ToSQLite(cfg map[string]interface{}, header []string, rows [][]string) error { // functie pentru incarcarea datelor in sqlite
-	path, ok := cfg["path"].(string) // obtinem calea bazei de date din configuratie
-	if !ok {                         // daca nu exista
-		return fmt.Errorf("missing 'path' in config") // returnam o eroare
-	}
-	table, ok := cfg["table"].(string) // obtinem numele tabelului din configuratie
-	if !ok {                           // daca nu exista
-		return fmt.Errorf("missing 'table' in config") // returnam o eroare
-	}
+func ToSQLite(cfg map[string]interface{}, header []string, rows [][]string) error {
+	path := cfg["path"].(string)   // calea catre fisierul sqlite
+	table := cfg["table"].(string) // numele tabelului unde se vor incarca datele
+
+	logger.Info.Printf("Opening SQLite DB: %s", path) // logam calea bazei de date
 
 	db, err := sql.Open("sqlite", path) // deschidem conexiunea la baza de date
 	if err != nil {                     // daca apare o eroare la deschidere
-		return err // returnam eroarea
+		logger.Error.Printf("Failed to open DB: %v", err) // logam eroarea
+		return err                                        // returnam eroarea
 	}
 	defer db.Close() // inchidem conexiunea la final
 
+	logger.Info.Printf("Creating table: %s", table) // logam numele tabelului
+
 	createQuery := fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (%s TEXT", table, header[0]) // cream query-ul de creare a tabelului
-	for _, col := range header[1:] {                                                       // iteram prin coloane
-		createQuery += fmt.Sprintf(", %s TEXT", col) // adaugam fiecare coloana la query
+	for _, col := range header[1:] {                                                       // iteram prin coloanele header-ului
+		createQuery += fmt.Sprintf(", %s TEXT", col) // adaugam coloana in query
 	}
 	createQuery += ")" // inchidem paranteza
 
 	if _, err := db.Exec(createQuery); err != nil { // executam query-ul de creare a tabelului
-		return fmt.Errorf("failed to create table: %v", err) // returnam eroarea daca apare
+		logger.Error.Printf("Create table failed: %v", err) // logam eroarea
+		return err                                          // returnam eroarea
 	}
 
 	insertQuery := fmt.Sprintf("INSERT INTO %s VALUES (%s)", table, placeholders(len(header))) // cream query-ul de insert
 	stmt, err := db.Prepare(insertQuery)                                                       // pregatim statement-ul de insert
 	if err != nil {                                                                            // daca apare o eroare la pregatire
-		return fmt.Errorf("failed to prepare insert: %v", err) // returnam eroarea
+		logger.Error.Printf("Prepare insert failed: %v", err) // logam eroarea
+		return err                                            // returnam eroarea
 	}
 	defer stmt.Close() // inchidem statement-ul la final
 
 	for _, r := range rows { // iteram prin randuri
-		vals := make([]interface{}, len(r)) // cream un slice pentru valorile de insert
-		for i := range r {                  // iteram prin fiecare valoare
-			vals[i] = r[i] // copiem valoarea in slice
+		vals := make([]interface{}, len(r)) // cream un slice de interfete pentru valorile randului
+		for i := range r {                  // iteram prin valorile randului
+			vals[i] = r[i] // atribuim valoarea la interfata corespunzatoare
 		}
-		if _, err := stmt.Exec(vals...); err != nil { // executam insert-ul
-			return fmt.Errorf("failed to insert row %v: %v", r, err) // returnam eroarea daca apare
+
+		if _, err := stmt.Exec(vals...); err != nil { // executam insert-ul cu valorile randului
+			logger.Error.Printf("Insert failed: %v", err) // logam eroarea
+			return err                                    // returnam eroarea
 		}
 	}
 
-	fmt.Printf("Inserted %d rows into %s\n", len(rows), table) // afisam numarul de randuri inserate
-	return nil
+	logger.Info.Printf("Inserted %d rows into database.", len(rows)) // logam numarul de randuri inserate
+	return nil                                                       // returnam nil pentru succes
 }
 
 func placeholders(n int) string { // functie pentru generarea placeholder-elor

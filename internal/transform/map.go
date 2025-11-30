@@ -1,16 +1,21 @@
 package transform
 
-func ApplyMapping(rows [][]string, header []string, mapping map[string]string) ([]string, [][]string) { // functie pentru aplicarea maparii pe date
-	newHeader := make([]string, len(header)) // cream un nou header
-	copy(newHeader, header)                  // copiem header-ul original in noul header
+import "github.com/ciolteamihairobert/go-etl-pipeline/internal/logger"
 
-	for oldName, newName := range mapping { // iteram prin mapare
+func ApplyMapping(rows [][]string, header []string, mapping map[string]string) ([]string, [][]string) { // functie pentru maparea coloanelor
+	logger.Info.Printf("Applying mapping: %v", mapping) // logam mapping-ul aplicat
+
+	newHeader := make([]string, len(header)) // cream un nou header
+	copy(newHeader, header)                  // copiem header-ul vechi in noul header
+
+	for oldName, newName := range mapping { // iteram prin mapping
 		for i, h := range newHeader { // iteram prin header
-			if h == oldName { // daca gasim o potrivire
-				newHeader[i] = newName // actualizam numele coloanei in noul header
+			if h == oldName { // daca gasim coloana veche
+				newHeader[i] = newName // inlocuim cu numele nou
 			}
 		}
 	}
 
-	return newHeader, rows // returnam noul header si randurile neschimbate
+	logger.Info.Println("Mapping applied.") // logam un mesaj de succes
+	return newHeader, rows                  // returnam noul header si randurile neschimbate
 }

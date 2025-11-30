@@ -6,47 +6,67 @@ import (
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/config"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/connector"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/load"
+	"github.com/ciolteamihairobert/go-etl-pipeline/internal/logger"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/transform"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/validation"
 )
 
-func Run(cfg *config.PipelineConfig) error { // functie pentru rularea pipeline-ului ETL
+func Run(cfg *config.PipelineConfig) error {
+	logger.Info.Println("Validating pipeline configuration...") // logam un mesaj de validare a configuratiei
+
 	if err := cfg.Validate(); err != nil { // validam configuratia pipeline-ului
-		return fmt.Errorf("pipeline validation failed: %w", err) // returnam eroarea daca validarea esueaza
+		logger.Error.Printf("Validation failed: %v", err)        // logam eroarea de validare
+		return fmt.Errorf("pipeline validation failed: %w", err) // returnam eroarea
 	}
 
+	logger.Info.Println("Starting extraction...")                 // logam un mesaj de start al extractiei
 	header, rows, err := connector.ExtractCSV(cfg.Extract.Config) // extragem datele folosind configuratia de extractie
-	if err != nil {
-		return fmt.Errorf("extract failed: %w", err)
+	if err != nil {                                               // daca apare o eroare la extractie
+		logger.Error.Printf("Extract failed: %v", err) // logam eroarea de extractie
+		return fmt.Errorf("extract failed: %w", err)   // returnam eroarea
 	}
+	logger.Info.Printf("Extracted %d rows", len(rows)) // logam numarul de randuri extrase
 
 	if len(cfg.DataValidation) > 0 { // daca exista reguli de validare a datelor
-		for i, r := range rows { // iteram prin randuri
+		logger.Info.Printf("Validating %d rows with %d rules...", len(rows), len(cfg.DataValidation)) // logam un mesaj de validare
+		for i, r := range rows {                                                                      // iteram prin randuri
 			if err := validation.ValidateRow(header, r, cfg.DataValidation); err != nil { // validam randul curent
-				return fmt.Errorf("data validation failed at row %d: %w", i+1, err) // returnam eroarea daca validarea esueaza
+				logger.Error.Printf("Row %d failed validation: %v", i, err) // logam eroarea de validare
+				return err                                                  // returnam eroarea
 			}
 		}
+		logger.Info.Println("All rows passed validation!") // logam un mesaj de succes
 	}
 
 	for _, step := range cfg.Transform { // iteram prin pasii de transformare
-		switch step.Type { // tipul pasului de transformare
-		case "filter": // daca este un filtru
-			rows = transform.ApplyFilter(rows, header, step.Expression) // aplicam filtrul pe randuri
+		logger.Info.Printf("Applying transform step: %s", step.Type) // logam tipul pasului de transformare
 
-		case "map": // daca este o mapare
-			header, rows = transform.ApplyMapping(rows, header, step.Mapping) // aplicam maparea pe randuri si header
+		switch step.Type { // comutam in functie de tipul pasului
+		case "filter": // daca tipul este filter
+			rows = transform.ApplyFilter(rows, header, step.Expression)         // aplicam filtrul
+			logger.Info.Printf("Filter applied. Remaining rows: %d", len(rows)) // logam numarul de randuri ramase
 
-		case "aggregate": // daca este o agregare
-			header, rows = transform.Aggregate(rows, header, step.GroupBy, step.Operations) // aplicam agregarea pe randuri si header
+		case "map": // daca tipul este map
+			header, rows = transform.ApplyMapping(rows, header, step.Mapping) // aplicam maparea
+			logger.Info.Println("Mapping applied.")                           // logam un mesaj de succes
+
+		case "aggregate": // daca tipul este aggregate
+			header, rows = transform.Aggregate(rows, header, step.GroupBy, step.Operations) // aplicam agregarea
+			logger.Info.Println("Aggregation applied.")                                     // logam un mesaj de succes
 		}
 	}
 
-	switch cfg.Load.Type { // tipul de incarcare
-	case "stdout": // daca este stdout
+	logger.Info.Printf("Starting load operation (%s)...", cfg.Load.Type) // logam un mesaj de start al incarcarii
+
+	switch cfg.Load.Type { // comutam in functie de tipul de load
+	case "stdout": // daca tipul este stdout
 		return load.ToStdout(header, rows) // incarcam datele in stdout
-	case "sqlite": // daca este sqlite
-		return load.ToSQLite(cfg.Load.Config, header, rows) // incarcam datele in sqlite
-	default:
-		return fmt.Errorf("unknown load type: %s", cfg.Load.Type)
+
+	case "sqlite": // daca tipul este sqlite
+		return load.ToSQLite(cfg.Load.Config, header, rows) // incarcam datele in baza de date sqlite
+
+	default: // pentru tipuri necunoscute
+		logger.Error.Printf("Unknown load type: %s", cfg.Load.Type) // logam eroarea
+		return fmt.Errorf("unknown load type: %s", cfg.Load.Type)   // returnam eroarea
 	}
 }

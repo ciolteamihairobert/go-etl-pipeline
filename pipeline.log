@@ -1,0 +1,382 @@
+INFO: 2025/11/30 16:25:37 main.go:16: === Starting Go ETL Pipeline Builder ===
+INFO: 2025/11/30 16:25:37 main.go:24: Pipeline loaded: sales-aggregator | Extract: csv | Load: sqlite
+INFO: 2025/11/30 16:25:37 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:25:37 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:25:37 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:25:37 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:25:37 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:25:37 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:25:37 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:25:37 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:25:37 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:25:37 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:25:37 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:25:37 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:25:37 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:25:37 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:25:37 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:25:37 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:25:37 aggregate.go:27: Aggregation groups: 4
+ERROR: 2025/11/30 16:25:37 aggregate.go:70: Unknown aggregation rule: total_sales
+INFO: 2025/11/30 16:28:07 main.go:16: === Starting Go ETL Pipeline Builder ===
+INFO: 2025/11/30 16:28:07 main.go:24: Pipeline loaded: sales-aggregator | Extract: csv | Load: sqlite
+INFO: 2025/11/30 16:28:07 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:28:07 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:28:07 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:28:07 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:28:07 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:28:07 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:28:07 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:28:07 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:28:07 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:07 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:28:07 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:28:07 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:28:07 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:28:07 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:28:07 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:28:07 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:28:07 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:28:07 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:28:07 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:28:07 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:28:07 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:28:07 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:28:08 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:28:08 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:28:08 main.go:43: Waiting 20 seconds for next scheduled run...
+INFO: 2025/11/30 16:28:27 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:28:27 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:28:27 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:28:27 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:28:27 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:28:27 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:28:27 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:28:27 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:28:27 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:27 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:28:27 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:28:27 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:28:27 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:28:27 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:28:27 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:28:27 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:28:27 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:28:27 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:28:27 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:28:27 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:28:27 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:28:27 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:28:27 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:28:27 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:28:27 main.go:43: Waiting 20 seconds for next scheduled run...
+INFO: 2025/11/30 16:28:47 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:28:47 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:28:47 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:28:47 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:28:47 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:28:47 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:28:47 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:28:47 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:28:47 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:28:47 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:28:47 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:28:47 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:28:47 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:28:47 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:28:47 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:28:47 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:28:47 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:28:47 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:28:47 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:28:47 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:28:47 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:28:47 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:28:47 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:28:47 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:28:47 main.go:43: Waiting 20 seconds for next scheduled run...
+INFO: 2025/11/30 16:29:07 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:29:07 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:29:07 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:29:07 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:29:07 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:29:07 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:29:07 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:29:07 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:29:07 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:07 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:29:07 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:29:07 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:29:07 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:29:07 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:29:07 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:29:07 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:29:07 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:29:07 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:29:07 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:29:07 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:29:07 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:29:07 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:29:07 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:29:07 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:29:07 main.go:43: Waiting 20 seconds for next scheduled run...
+INFO: 2025/11/30 16:29:27 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:29:27 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:29:27 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:29:27 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:29:27 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:29:27 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:29:27 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:29:27 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:29:27 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:27 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:29:27 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:29:27 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:29:27 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:29:27 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:29:27 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:29:27 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:29:27 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:29:27 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:29:27 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:29:27 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:29:27 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:29:27 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:29:27 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:29:27 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:29:27 main.go:43: Waiting 20 seconds for next scheduled run...
+INFO: 2025/11/30 16:29:47 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:29:47 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:29:47 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:29:47 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:29:47 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:29:47 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:29:47 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:29:47 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:29:47 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:29:47 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:29:47 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:29:47 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:29:47 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:29:47 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:29:47 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:29:47 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:29:47 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:29:47 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:29:47 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:29:47 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:29:47 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:29:47 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:29:48 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:29:48 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:29:48 main.go:43: Waiting 20 seconds for next scheduled run...
+INFO: 2025/11/30 16:30:07 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:30:07 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:30:07 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:30:07 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:30:07 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:30:07 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:30:07 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:30:07 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:30:07 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:07 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:30:07 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:30:07 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:30:07 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:30:07 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:30:07 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:30:07 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:30:07 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:30:07 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:30:07 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:30:07 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:30:07 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:30:07 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:30:07 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:30:08 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:30:08 main.go:43: Waiting 20 seconds for next scheduled run...
+INFO: 2025/11/30 16:30:27 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:30:27 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:30:27 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:30:27 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:30:27 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:30:27 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:30:27 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:30:27 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:30:27 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:27 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:30:27 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:30:27 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:30:27 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:30:27 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:30:27 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:30:27 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:30:27 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:30:27 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:30:27 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:30:27 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:30:27 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:30:27 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:30:27 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:30:27 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:30:27 main.go:43: Waiting 20 seconds for next scheduled run...
+INFO: 2025/11/30 16:30:47 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:30:47 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:30:47 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:30:47 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:30:47 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:30:47 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:30:47 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:30:47 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:30:47 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:30:47 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:30:47 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:30:47 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:30:47 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:30:47 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:30:47 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:30:47 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:30:47 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:30:47 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:30:47 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:30:47 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:30:47 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:30:47 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:30:47 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:30:47 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:30:47 main.go:43: Waiting 20 seconds for next scheduled run...
+INFO: 2025/11/30 16:31:07 main.go:31: ---- Pipeline Execution Started ----
+INFO: 2025/11/30 16:31:07 runner.go:15: Validating pipeline configuration...
+INFO: 2025/11/30 16:31:07 validator.go:10: Starting config validation...
+INFO: 2025/11/30 16:31:07 validator.go:56: Config validation passed successfully.
+INFO: 2025/11/30 16:31:07 runner.go:22: Starting extraction...
+INFO: 2025/11/30 16:31:07 csv.go:12: Opening CSV file: ./examples/sales.csv
+INFO: 2025/11/30 16:31:07 csv.go:35: CSV loaded: 10 rows, 5 columns
+INFO: 2025/11/30 16:31:07 runner.go:28: Extracted 10 rows
+INFO: 2025/11/30 16:31:07 runner.go:31: Validating 10 rows with 2 rules...
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 validation.go:65: Row passed validation.
+INFO: 2025/11/30 16:31:07 runner.go:38: All rows passed validation!
+INFO: 2025/11/30 16:31:07 runner.go:42: Applying transform step: filter
+INFO: 2025/11/30 16:31:07 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/11/30 16:31:07 filter.go:27: Filter result: 7 rows
+INFO: 2025/11/30 16:31:07 runner.go:47: Filter applied. Remaining rows: 7
+INFO: 2025/11/30 16:31:07 runner.go:42: Applying transform step: aggregate
+INFO: 2025/11/30 16:31:07 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/11/30 16:31:07 aggregate.go:27: Aggregation groups: 4
+INFO: 2025/11/30 16:31:07 aggregate.go:82: Aggregation complete: 4 final rows
+INFO: 2025/11/30 16:31:07 runner.go:55: Aggregation applied.
+INFO: 2025/11/30 16:31:07 runner.go:59: Starting load operation (sqlite)...
+INFO: 2025/11/30 16:31:07 sqlite.go:15: Opening SQLite DB: ./examples/sales.db
+INFO: 2025/11/30 16:31:07 sqlite.go:24: Creating table: sales_summary
+INFO: 2025/11/30 16:31:07 sqlite.go:57: Inserted 4 rows into database.
+INFO: 2025/11/30 16:31:07 main.go:40: Pipeline executed successfully.
+INFO: 2025/11/30 16:31:07 main.go:43: Waiting 20 seconds for next scheduled run...
