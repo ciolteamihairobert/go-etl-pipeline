@@ -1,9 +1,13 @@
 name: sales-aggregator
+# extract:
+#   type: csv
+#   config:
+#     path: ./examples/sales.csv
+#     delimiter: ","
 extract:
-  type: csv
+  type: json
   config:
-    path: ./examples/sales.csv
-    delimiter: ","
+    path: ./examples/products.json
 transform:
   - type: filter
     expression: "status == 'Completed'"

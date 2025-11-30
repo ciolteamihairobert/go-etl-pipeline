@@ -1,0 +1,6 @@
+[
+  { "transaction_id": "T001", "product": "Laptop",  "quantity": 1, "amount": 1200, "status": "Completed" },
+  { "transaction_id": "T002", "product": "Mouse",   "quantity": 3, "amount": 75,   "status": "Completed" },
+  { "transaction_id": "T003", "product": "Keyboard","quantity": 2, "amount": 100,  "status": "Canceled" },
+  { "transaction_id": "T004", "product": "Mouse",   "quantity": 1, "amount": 25,   "status": "Completed" }
+]

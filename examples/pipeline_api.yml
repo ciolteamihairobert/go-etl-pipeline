@@ -1,0 +1,13 @@
+name: users-from-api
+extract:
+  type: api
+  config:
+    url: "https://jsonplaceholder.typicode.com/users"
+transform: []
+load:
+  type: stdout
+  config: {}
+schedule:
+  interval_seconds: 60
+  retries: 3
+validate: []

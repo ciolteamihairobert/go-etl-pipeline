@@ -15,14 +15,13 @@ func main() {
 	logger.Init()                                                   // apelam functia Init din pachetul logger pentru a initializa logger-ul
 	logger.Info.Println("=== Starting Go ETL Pipeline Builder ===") // logam un mesaj de start
 
-	cfg, err := config.LoadPipelineConfig("./examples/pipeline.yml") // incarcam configuratia pipeline-ului din fisierul YAML
-	if err != nil {                                                  // daca apare o eroare la incarcare
+	cfg, err := config.LoadPipelineConfig("./examples/pipeline_postgres.yml") // incarcam configuratia pipeline-ului din fisierul YAML
+	if err != nil {                                                           // daca apare o eroare la incarcare
 		logger.Error.Printf("Failed to load config: %v", err) // logam eroarea
 		log.Fatalf("Failed to load config: %v", err)          // logam eroarea si oprim executia
 	}
 
-	logger.Info.Printf("Pipeline loaded: %s | Extract: %s | Load: %s",
-		cfg.Name, cfg.Extract.Type, cfg.Load.Type) // logam detalii despre pipeline
+	logger.Info.Printf("Pipeline loaded: %s | Extract: %s | Load: %s", cfg.Name, cfg.Extract.Type, cfg.Load.Type) // logam detalii despre pipeline
 
 	ticker := time.NewTicker(time.Duration(cfg.Schedule.IntervalSeconds) * time.Second) // cream un ticker pentru scheduling
 	defer ticker.Stop()                                                                 // oprim ticker-ul la final

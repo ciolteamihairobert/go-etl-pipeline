@@ -19,12 +19,33 @@ func Run(cfg *config.PipelineConfig) error {
 		return fmt.Errorf("pipeline validation failed: %w", err) // returnam eroarea
 	}
 
-	logger.Info.Println("Starting extraction...")                 // logam un mesaj de start al extractiei
-	header, rows, err := connector.ExtractCSV(cfg.Extract.Config) // extragem datele folosind configuratia de extractie
-	if err != nil {                                               // daca apare o eroare la extractie
-		logger.Error.Printf("Extract failed: %v", err) // logam eroarea de extractie
-		return fmt.Errorf("extract failed: %w", err)   // returnam eroarea
+	logger.Info.Println("Starting extraction...") // logam un mesaj de start al extractiei
+	var header []string                           // slice pentru header
+	var rows [][]string                           // slice pentru randuri
+	var err error                                 // variabila pentru eroare
+
+	switch cfg.Extract.Type { // comutam in functie de tipul de extractie
+	case "csv": // daca tipul este csv
+		header, rows, err = connector.ExtractCSV(cfg.Extract.Config) // extragem datele din CSV
+
+	case "json": // daca tipul este json
+		header, rows, err = connector.ExtractJSON(cfg.Extract.Config) // extragem datele din JSON
+
+	case "api": // daca tipul este api
+		header, rows, err = connector.ExtractAPI(cfg.Extract.Config) // extragem datele din API
+
+	case "postgres": // daca tipul este postgres
+		header, rows, err = connector.ExtractPostgres(cfg.Extract.Config) // extragem datele din Postgres
+
+	default: // pentru tipuri necunoscute
+		return fmt.Errorf("unknown extract type: %s", cfg.Extract.Type) // returnam eroarea
 	}
+
+	if err != nil { // daca a aparut o eroare la extractie
+		logger.Error.Printf("Extract failed: %v", err) // logam eroarea
+		return err                                     // returnam eroarea
+	}
+
 	logger.Info.Printf("Extracted %d rows", len(rows)) // logam numarul de randuri extrase
 
 	if len(cfg.DataValidation) > 0 { // daca exista reguli de validare a datelor
