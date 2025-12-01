@@ -86,6 +86,12 @@ func Run(cfg *config.PipelineConfig) error {
 	case "sqlite": // daca tipul este sqlite
 		return load.ToSQLite(cfg.Load.Config, header, rows) // incarcam datele in baza de date sqlite
 
+	case "postgres": // daca tipul este postgres
+		return load.ToPostgres(cfg.Load.Config, header, rows) // incarcam datele in baza de date postgres
+
+	case "csv": // daca tipul este csv
+		return load.ToCSV(cfg.Load.Config, header, rows) // incarcam datele intr-un fisier CSV
+
 	default: // pentru tipuri necunoscute
 		logger.Error.Printf("Unknown load type: %s", cfg.Load.Type) // logam eroarea
 		return fmt.Errorf("unknown load type: %s", cfg.Load.Type)   // returnam eroarea

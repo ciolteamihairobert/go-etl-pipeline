@@ -15,8 +15,8 @@ func main() {
 	logger.Init()                                                   // apelam functia Init din pachetul logger pentru a initializa logger-ul
 	logger.Info.Println("=== Starting Go ETL Pipeline Builder ===") // logam un mesaj de start
 
-	cfg, err := config.LoadPipelineConfig("./examples/pipeline_postgres.yml") // incarcam configuratia pipeline-ului din fisierul YAML
-	if err != nil {                                                           // daca apare o eroare la incarcare
+	cfg, err := config.LoadPipelineConfig("./examples/pipeline_pg_output.yml") // incarcam configuratia pipeline-ului din fisierul YAML
+	if err != nil {                                                            // daca apare o eroare la incarcare
 		logger.Error.Printf("Failed to load config: %v", err) // logam eroarea
 		log.Fatalf("Failed to load config: %v", err)          // logam eroarea si oprim executia
 	}

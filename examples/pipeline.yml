@@ -18,10 +18,13 @@ transform:
       total_quantity: "sum(quantity)"
       transactions: "count()"
 load:
-  type: sqlite
+  # type: sqlite
+  # config:
+  #   path: ./examples/sales.db
+  #   table: sales_summary
+  type: csv
   config:
-    path: ./examples/sales.db
-    table: sales_summary
+    path: ./examples/output.csv
 schedule:
   interval_seconds: 20
   retries: 5

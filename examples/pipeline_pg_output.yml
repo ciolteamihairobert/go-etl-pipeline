@@ -1,0 +1,25 @@
+name: pg-output-test
+extract:
+  type: postgres
+  config:
+    conn: "host=localhost port=5433 user=postgres password=postgres dbname=postgres sslmode=disable"
+    query: "SELECT product, quantity, amount, status FROM products"
+
+transform:
+  - type: aggregate
+    group_by: product
+    operations:
+      total_sales: "sum(amount)"
+      total_quantity: "sum(quantity)"
+      transactions: "count()"
+
+load:
+  type: postgres
+  config:
+    conn: "host=localhost user=postgres password=postgres dbname=postgres port=5433 sslmode=disable"
+    table: "sales_output"
+
+schedule:
+  interval_seconds: 20
+  retries: 3
+validate: []
