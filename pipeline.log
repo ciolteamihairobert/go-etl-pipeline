@@ -902,3 +902,519 @@ INFO: 2025/12/01 14:08:45 postgres.go:70: POSTGRES LOAD: Insert query: INSERT IN
 INFO: 2025/12/01 14:08:45 postgres.go:91: POSTGRES LOAD: Completed successfully. Inserted 5 rows
 INFO: 2025/12/01 14:08:45 main.go:39: Pipeline executed successfully.
 INFO: 2025/12/01 14:08:45 main.go:42: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 13:55:32 htttp.go:19: Monitoring HTTP server started on :8080
+INFO: 2025/12/30 13:55:32 main.go:18: === Starting Go ETL Pipeline Builder ===
+INFO: 2025/12/30 13:55:32 main.go:26: Pipeline loaded: sales-aggregator | Extract: json | Load: csv
+INFO: 2025/12/30 13:55:32 main.go:32: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 13:55:32 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 13:55:32 validator.go:10: Starting config validation...
+INFO: 2025/12/30 13:55:32 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 13:55:32 runner.go:22: Starting extraction...
+INFO: 2025/12/30 13:55:32 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 13:55:32 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 13:55:32 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 13:55:32 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 13:55:32 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:55:32 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:55:32 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:55:32 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:55:32 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 13:55:32 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 13:55:32 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 13:55:32 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 13:55:32 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 13:55:32 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 13:55:32 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 13:55:32 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 13:55:32 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 13:55:32 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 13:55:32 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 13:55:32 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 13:55:33 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 13:55:33 main.go:41: Pipeline executed successfully.
+INFO: 2025/12/30 13:55:33 main.go:44: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 13:55:52 main.go:32: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 13:55:52 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 13:55:52 validator.go:10: Starting config validation...
+INFO: 2025/12/30 13:55:52 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 13:55:52 runner.go:22: Starting extraction...
+INFO: 2025/12/30 13:55:52 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 13:55:52 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 13:55:52 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 13:55:52 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 13:55:52 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:55:52 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:55:52 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:55:52 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:55:52 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 13:55:52 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 13:55:52 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 13:55:52 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 13:55:52 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 13:55:52 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 13:55:52 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 13:55:52 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 13:55:52 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 13:55:52 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 13:55:52 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 13:55:52 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 13:55:52 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 13:55:52 main.go:41: Pipeline executed successfully.
+INFO: 2025/12/30 13:55:52 main.go:44: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 13:56:12 main.go:32: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 13:56:12 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 13:56:12 validator.go:10: Starting config validation...
+INFO: 2025/12/30 13:56:12 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 13:56:12 runner.go:22: Starting extraction...
+INFO: 2025/12/30 13:56:12 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 13:56:12 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 13:56:12 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 13:56:12 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 13:56:12 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:12 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:12 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:12 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:12 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 13:56:12 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 13:56:12 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 13:56:12 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 13:56:12 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 13:56:12 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 13:56:12 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 13:56:12 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 13:56:12 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 13:56:12 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 13:56:12 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 13:56:12 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 13:56:12 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 13:56:12 main.go:41: Pipeline executed successfully.
+INFO: 2025/12/30 13:56:12 main.go:44: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 13:56:32 main.go:32: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 13:56:32 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 13:56:32 validator.go:10: Starting config validation...
+INFO: 2025/12/30 13:56:32 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 13:56:32 runner.go:22: Starting extraction...
+INFO: 2025/12/30 13:56:32 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 13:56:32 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 13:56:32 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 13:56:32 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 13:56:32 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:32 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:32 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:32 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:32 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 13:56:32 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 13:56:32 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 13:56:32 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 13:56:32 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 13:56:32 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 13:56:32 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 13:56:32 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 13:56:32 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 13:56:32 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 13:56:32 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 13:56:32 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 13:56:32 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 13:56:32 main.go:41: Pipeline executed successfully.
+INFO: 2025/12/30 13:56:32 main.go:44: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 13:56:52 main.go:32: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 13:56:52 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 13:56:52 validator.go:10: Starting config validation...
+INFO: 2025/12/30 13:56:52 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 13:56:52 runner.go:22: Starting extraction...
+INFO: 2025/12/30 13:56:52 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 13:56:52 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 13:56:52 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 13:56:52 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 13:56:52 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:52 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:52 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:52 validation.go:65: Row passed validation.
+INFO: 2025/12/30 13:56:52 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 13:56:52 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 13:56:52 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 13:56:52 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 13:56:52 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 13:56:52 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 13:56:52 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 13:56:52 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 13:56:52 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 13:56:52 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 13:56:52 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 13:56:52 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 13:56:52 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 13:56:52 main.go:41: Pipeline executed successfully.
+INFO: 2025/12/30 13:56:52 main.go:44: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:06:11 main.go:17: === Starting Go ETL Pipeline Builder ===
+INFO: 2025/12/30 14:06:11 main.go:25: Pipeline loaded: sales-aggregator | Extract: json | Load: csv
+INFO: 2025/12/30 14:06:11 htttp.go:19: Monitoring HTTP server started on :8080
+INFO: 2025/12/30 14:06:11 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:06:11 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:06:11 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:06:11 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:06:11 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:06:11 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:06:11 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:06:11 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:06:11 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:06:11 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:06:11 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:06:11 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:06:11 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:06:11 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:06:11 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:06:11 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:06:11 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:06:11 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:06:11 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:06:11 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:06:11 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:06:11 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:06:11 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:06:11 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:06:11 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:06:11 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:06:11 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:06:11 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:06:31 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:06:31 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:06:31 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:06:31 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:06:31 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:06:31 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:06:31 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:06:31 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:06:31 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:06:31 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:06:31 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:06:31 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:06:31 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:06:31 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:06:31 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:06:31 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:06:31 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:06:31 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:06:31 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:06:31 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:06:31 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:06:31 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:06:31 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:06:31 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:06:31 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:06:31 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:06:31 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:06:31 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:07:53 main.go:17: === Starting Go ETL Pipeline Builder ===
+INFO: 2025/12/30 14:07:53 main.go:25: Pipeline loaded: sales-aggregator | Extract: json | Load: csv
+INFO: 2025/12/30 14:07:53 htttp.go:19: Monitoring HTTP server started on :8080
+INFO: 2025/12/30 14:07:53 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:07:53 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:07:53 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:07:53 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:07:53 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:07:53 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:07:53 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:07:53 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:07:53 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:07:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:07:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:07:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:07:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:07:53 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:07:53 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:07:53 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:07:53 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:07:53 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:07:53 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:07:53 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:07:53 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:07:53 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:07:53 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:07:53 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:07:53 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:07:53 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:07:53 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:07:53 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:08:13 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:08:13 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:08:13 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:08:13 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:08:13 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:08:13 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:08:13 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:08:13 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:08:13 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:08:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:13 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:08:13 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:08:13 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:08:13 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:08:13 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:08:13 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:08:13 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:08:13 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:08:13 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:08:13 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:08:13 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:08:13 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:08:13 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:08:13 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:08:13 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:08:33 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:08:33 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:08:33 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:08:33 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:08:33 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:08:33 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:08:33 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:08:33 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:08:33 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:08:33 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:33 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:33 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:33 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:33 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:08:33 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:08:33 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:08:33 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:08:33 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:08:33 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:08:33 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:08:33 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:08:33 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:08:33 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:08:33 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:08:33 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:08:33 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:08:33 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:08:33 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:08:53 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:08:53 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:08:53 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:08:53 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:08:53 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:08:53 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:08:53 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:08:53 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:08:53 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:08:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:08:53 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:08:53 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:08:53 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:08:53 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:08:53 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:08:53 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:08:53 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:08:53 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:08:53 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:08:53 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:08:53 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:08:53 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:08:53 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:08:53 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:08:53 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:09:13 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:09:13 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:09:13 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:09:13 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:09:13 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:09:13 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:09:13 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:09:13 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:09:13 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:09:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:13 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:09:13 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:09:13 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:09:13 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:09:13 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:09:13 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:09:13 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:09:13 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:09:13 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:09:13 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:09:13 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:09:13 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:09:13 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:09:13 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:09:13 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:09:33 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:09:33 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:09:33 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:09:33 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:09:33 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:09:33 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:09:33 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:09:33 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:09:33 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:09:33 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:33 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:33 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:33 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:33 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:09:33 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:09:33 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:09:33 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:09:33 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:09:33 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:09:33 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:09:33 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:09:33 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:09:33 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:09:33 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:09:33 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:09:33 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:09:33 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:09:33 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:09:53 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:09:53 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:09:53 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:09:53 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:09:53 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:09:53 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:09:53 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:09:53 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:09:53 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:09:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:53 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:09:53 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:09:53 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:09:53 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:09:53 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:09:53 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:09:53 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:09:53 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:09:53 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:09:53 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:09:53 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:09:53 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:09:53 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:09:53 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:09:53 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:09:53 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:10:13 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:10:13 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:10:13 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:10:13 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:10:13 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:10:13 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:10:13 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:10:13 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:10:13 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:10:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:10:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:10:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:10:13 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:10:13 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:10:13 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:10:13 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:10:13 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:10:13 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:10:13 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:10:13 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:10:13 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:10:13 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:10:13 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:10:13 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:10:13 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:10:13 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:10:13 main.go:47: Pipeline executed successfully.
+INFO: 2025/12/30 14:10:13 main.go:50: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:32:10 main.go:17: === Starting Go ETL Pipeline Builder ===
+INFO: 2025/12/30 14:32:10 main.go:25: Pipeline loaded: sales-aggregator | Extract: json | Load: csv
+INFO: 2025/12/30 14:32:10 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:32:10 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:32:10 server.go:28: Monitoring HTTP server started on :8080
+INFO: 2025/12/30 14:32:10 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:32:10 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:32:10 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:32:10 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:32:10 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:32:10 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:32:10 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:32:10 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:10 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:10 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:10 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:10 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:32:10 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:32:10 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:32:10 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:32:10 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:32:10 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:32:10 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:32:10 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:32:10 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:32:10 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:32:10 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:32:10 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:32:10 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:32:10 main.go:55: Pipeline executed successfully!
+INFO: 2025/12/30 14:32:10 main.go:67: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:32:30 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:32:30 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:32:30 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:32:30 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:32:30 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:32:30 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:32:30 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:32:30 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:32:30 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:32:30 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:30 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:30 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:30 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:30 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:32:30 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:32:30 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:32:30 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:32:30 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:32:30 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:32:30 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:32:30 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:32:30 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:32:30 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:32:30 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:32:30 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:32:30 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:32:30 main.go:55: Pipeline executed successfully!
+INFO: 2025/12/30 14:32:30 main.go:67: Waiting 20 seconds for next scheduled run...
+INFO: 2025/12/30 14:32:50 main.go:33: ---- Pipeline Execution Started ----
+INFO: 2025/12/30 14:32:50 runner.go:15: Validating pipeline configuration...
+INFO: 2025/12/30 14:32:50 validator.go:10: Starting config validation...
+INFO: 2025/12/30 14:32:50 validator.go:56: Config validation passed successfully.
+INFO: 2025/12/30 14:32:50 runner.go:22: Starting extraction...
+INFO: 2025/12/30 14:32:50 json.go:13: Starting JSON extraction | file=./examples/products.json
+INFO: 2025/12/30 14:32:50 json.go:46: JSON extracted successfully | rows=4 cols=5
+INFO: 2025/12/30 14:32:50 runner.go:49: Extracted 4 rows
+INFO: 2025/12/30 14:32:50 runner.go:52: Validating 4 rows with 2 rules...
+INFO: 2025/12/30 14:32:50 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:50 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:50 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:50 validation.go:65: Row passed validation.
+INFO: 2025/12/30 14:32:50 runner.go:59: All rows passed validation!
+INFO: 2025/12/30 14:32:50 runner.go:63: Applying transform step: filter
+INFO: 2025/12/30 14:32:50 filter.go:10: Applying filter: status == 'Completed'
+INFO: 2025/12/30 14:32:50 filter.go:27: Filter result: 3 rows
+INFO: 2025/12/30 14:32:50 runner.go:68: Filter applied. Remaining rows: 3
+INFO: 2025/12/30 14:32:50 runner.go:63: Applying transform step: aggregate
+INFO: 2025/12/30 14:32:50 aggregate.go:12: Aggregation step started | group_by=product
+INFO: 2025/12/30 14:32:50 aggregate.go:26: Aggregation groups: 2
+INFO: 2025/12/30 14:32:50 aggregate.go:75: Aggregation complete: 2 final rows
+INFO: 2025/12/30 14:32:50 runner.go:76: Aggregation applied.
+INFO: 2025/12/30 14:32:50 runner.go:80: Starting load operation (csv)...
+INFO: 2025/12/30 14:32:50 csv_writer.go:17: Writing CSV output to ./examples/output.csv...
+INFO: 2025/12/30 14:32:50 csv_writer.go:39: CSV written successfully with 2 rows
+INFO: 2025/12/30 14:32:50 main.go:55: Pipeline executed successfully!
+INFO: 2025/12/30 14:32:50 main.go:67: Waiting 20 seconds for next scheduled run...

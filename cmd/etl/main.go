@@ -7,6 +7,7 @@ import (
 
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/config"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/logger"
+	"github.com/ciolteamihairobert/go-etl-pipeline/internal/monitor"
 	"github.com/ciolteamihairobert/go-etl-pipeline/internal/runner"
 )
 
@@ -15,13 +16,15 @@ func main() {
 	logger.Init()                                                   // apelam functia Init din pachetul logger pentru a initializa logger-ul
 	logger.Info.Println("=== Starting Go ETL Pipeline Builder ===") // logam un mesaj de start
 
-	cfg, err := config.LoadPipelineConfig("./examples/pipeline_pg_output.yml") // incarcam configuratia pipeline-ului din fisierul YAML
-	if err != nil {                                                            // daca apare o eroare la incarcare
+	cfg, err := config.LoadPipelineConfig("./examples/pipeline.yml") // incarcam configuratia pipeline-ului din fisierul YAML
+	if err != nil {                                                  // daca apare o eroare la incarcare
 		logger.Error.Printf("Failed to load config: %v", err) // logam eroarea
 		log.Fatalf("Failed to load config: %v", err)          // logam eroarea si oprim executia
 	}
 
 	logger.Info.Printf("Pipeline loaded: %s | Extract: %s | Load: %s", cfg.Name, cfg.Extract.Type, cfg.Load.Type) // logam detalii despre pipeline
+
+	go monitor.StartServer(":8080") // pornim serverul HTTP de monitorizare pe portul 8080
 
 	ticker := time.NewTicker(time.Duration(cfg.Schedule.IntervalSeconds) * time.Second) // cream un ticker pentru scheduling
 	defer ticker.Stop()                                                                 // oprim ticker-ul la final
@@ -29,14 +32,36 @@ func main() {
 	for {
 		logger.Info.Println("---- Pipeline Execution Started ----") // logam un mesaj de start al executiei pipeline-ului
 
+		start := time.Now() // inregistram timpul de start
+
 		err := retry(cfg.Schedule.Retries, func() error { // incercam sa rulam pipeline-ul cu retry-uri
 			return runner.Run(cfg) // rulam pipeline-ul folosind configuratia incarcata
 		})
 
-		if err != nil { // daca apare o eroare dupa toate retry-urile
-			logger.Error.Printf("Pipeline failed after retry attempts: %v", err) // logam eroarea
-		} else {
-			logger.Info.Println("Pipeline executed successfully.") // logam un mesaj de succes
+		duration := time.Since(start) // calculam durata executiei
+		if err != nil {               // daca apare o eroare dupa toate retry-urile
+			logger.Error.Printf("Pipeline failed after retries: %v", err) // logam eroarea
+
+			monitor.UpdateRun(monitor.RunRecord{ // actualizam metrics si istoricul cu inregistrarea esecului
+				Time:      time.Now(),
+				Status:    "failed",
+				Duration:  duration,
+				Error:     err.Error(),
+				Pipeline:  cfg.Name,
+				Extractor: cfg.Extract.Type,
+				Loader:    cfg.Load.Type,
+			})
+		} else { // daca pipeline-ul a rulat cu succes
+			logger.Info.Println("Pipeline executed successfully!") // logam mesajul de succes
+
+			monitor.UpdateRun(monitor.RunRecord{ // actualizam metrics si istoricul cu inregistrarea succesului
+				Time:      time.Now(),
+				Status:    "success",
+				Duration:  duration,
+				Pipeline:  cfg.Name,
+				Extractor: cfg.Extract.Type,
+				Loader:    cfg.Load.Type,
+			})
 		}
 
 		logger.Info.Printf("Waiting %d seconds for next scheduled run...", cfg.Schedule.IntervalSeconds) // logam timpul de asteptare
